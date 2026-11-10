@@ -159,9 +159,14 @@ jobs:
           git pull --rebase origin main
           sed -i -E "s|(image: .*/backend:).*|\1$TAG|" k8s/05-backend.yaml
           sed -i -E "s|(image: .*/frontend:).*|\1$TAG|" k8s/06-frontend.yaml
-          git add k8s
-          git commit -m "Release $TAG [skip ci]"
-          git push origin main
+          git add k8s/05-backend.yaml k8s/06-frontend.yaml
+          if ! git diff --cached --quiet; then
+            git commit -m "Release $TAG [skip ci]"
+            git push origin main
+          else
+            # CHANGED: Prevent pipeline failure when there is nothing to commit
+            echo "Image tags already up to date"
+          fi
   verify:
     needs: release
     runs-on: ubuntu-latest
