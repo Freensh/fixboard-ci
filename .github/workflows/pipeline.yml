@@ -102,13 +102,17 @@ jobs:
             ignore-unfixed: true
             exit-code: '0'
 
-      - name: Upload images
+      - name: Upload backend image
         if: github.event_name == 'push'
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
-          images: |
-            fixboard-backend:${{ steps.tag.outputs.tag }}
-            fixboard-frontend:${{ steps.tag.outputs.tag }}
+          image: fixboard-backend:${{ steps.tag.outputs.tag }}
+
+      - name: Upload frontend image
+        if: github.event_name == 'push'
+        uses: ishworkh/docker-image-artifact-upload@v1
+        with:
+          image: fixboard-frontend:${{ steps.tag.outputs.tag }}
   release:
     needs: build
     if: github.event_name == 'push'
