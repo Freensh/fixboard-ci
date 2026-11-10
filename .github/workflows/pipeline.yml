@@ -8,6 +8,7 @@ on:
       - "frontend/**"
       - "sonar-project.properties"
       - ".github/workflows/pipeline.yml"
+      - "scratch-notes.txt"
   push:
     branches: [main]
     paths:
