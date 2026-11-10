@@ -87,7 +87,7 @@ jobs:
           cache-to: type=gha,scope=frontend,mode=max
 
       - name: Scan backend
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.35.0
         with:
              image-ref: fixboard-backend:${{ steps.tag.outputs.tag }}
              severity: HIGH,CRITICAL
@@ -95,7 +95,7 @@ jobs:
              exit-code: '1'
 
       - name: Scan frontend
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.35.0
         with:
             image-ref: fixboard-frontend:${{ steps.tag.outputs.tag }}
             severity: HIGH,CRITICAL
