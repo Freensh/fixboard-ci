@@ -102,17 +102,19 @@ jobs:
             ignore-unfixed: true
             exit-code: '0'
 
-      - name: Upload backend image
+      - name: Save the scanned images
         if: github.event_name == 'push'
-        uses: ishworkh/docker-image-artifact-upload@v1
-        with:
-          image: fixboard-backend:${{ steps.tag.outputs.tag }}
+        run: |
+          TAG=${{ steps.tag.outputs.tag }}
+          docker save fixboard-backend:$TAG fixboard-frontend:$TAG -o images.tar
 
-      - name: Upload frontend image
+      - name: Keep the images for the release job
         if: github.event_name == 'push'
-        uses: ishworkh/docker-image-artifact-upload@v1
+        uses: actions/upload-artifact@v4
         with:
-          image: fixboard-frontend:${{ steps.tag.outputs.tag }}
+          name: images
+          path: images.tar
+          retention-days: 1
   release:
     needs: build
     if: github.event_name == 'push'
