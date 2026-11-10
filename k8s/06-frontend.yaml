@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 885684264653.dkr.ecr.us-east-1.amazonaws.com/fixboard/frontend:bed320f
+          image: 885684264653.dkr.ecr.us-east-1.amazonaws.com/fixboard/frontend:b64dae7
           ports:
             - containerPort: 80
           env:
