@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: origin  https://github.com/Freensh/fixboard-ci.git
+    repoURL: https://github.com/Freensh/fixboard-ci.git
     targetRevision: main
     path: k8s
   destination:
