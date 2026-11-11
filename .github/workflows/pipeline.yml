@@ -8,7 +8,6 @@ on:
       - "frontend/**"
       - "sonar-project.properties"
       - ".github/workflows/pipeline.yml"
-      - "scratch-notes.txt"
   push:
     branches: [main]
     paths:
@@ -90,18 +89,18 @@ jobs:
       - name: Scan backend
         uses: aquasecurity/trivy-action@0.35.0
         with:
-             image-ref: fixboard-backend:${{ steps.tag.outputs.tag }}
-             severity: HIGH,CRITICAL
-             ignore-unfixed: true
-             exit-code: '0'
+          image-ref: fixboard-backend:${{ steps.tag.outputs.tag }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '0'
 
       - name: Scan frontend
         uses: aquasecurity/trivy-action@0.35.0
         with:
-            image-ref: fixboard-frontend:${{ steps.tag.outputs.tag }}
-            severity: HIGH,CRITICAL
-            ignore-unfixed: true
-            exit-code: '0'
+          image-ref: fixboard-frontend:${{ steps.tag.outputs.tag }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '0'
 
       - name: Save the scanned images
         if: github.event_name == 'push'
@@ -165,7 +164,6 @@ jobs:
             git commit -m "Release $TAG [skip ci]"
             git push origin main
           else
-            # CHANGED: Prevent pipeline failure when there is nothing to commit
             echo "Image tags already up to date"
           fi
   verify:
